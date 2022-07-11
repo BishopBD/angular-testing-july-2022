@@ -49,6 +49,7 @@ const selectReferencesBranch = createSelector(
 );
 
 const selectErrorsBranch = createSelector(selectFeature, (f) => f.errors);
+
 const selectRegistrationsRequestBranch = createSelector(
   selectFeature,
   (f) => f.registrationRequests

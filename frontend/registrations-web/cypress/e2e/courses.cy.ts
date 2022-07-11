@@ -3,6 +3,7 @@ describe('The Courses Route', () => {
     beforeEach(() => {
       cy.visit('/');
     });
+
     it('allows you to get there from the home page', () => {
       cy.get('[data-testid="go-to-courses"]')
         .click()
@@ -12,58 +13,67 @@ describe('The Courses Route', () => {
   });
 
   describe('all the courses stuff', () => {
-    beforeEach(() => {
-      // cy.visit('/courses');
-    });
-  });
+    beforeEach(() => {});
 
-  describe('No Courses Returned From Api', () => {
-    beforeEach(() => {
+    describe('has data', () => {
       cy.intercept('GET', '/api/references/courses', {
         data: [],
       });
-
       cy.intercept('GET', '/api/references/offerings', {
         data: [],
       });
 
       cy.visit('/courses');
     });
+    describe('No Courses Returned From Api', () => {
+      beforeEach(() => {
+        cy.intercept('GET', '/api/references/courses', {
+          data: [],
+        });
+        cy.intercept('GET', '/api/references/offerings', {
+          data: [],
+        });
 
-    it('should display the "no courses" alert', () => {
-      cy.get('[data-test-id="courses-list-alert-no-courses"]')
-        .should('exist')
-        .contains('No courses found.');
-    });
-  });
-
-  describe('API Has An Error', () => {
-    beforeEach(() => {
-      cy.intercept('GET', '/api/references/courses', {
-        statusCode: 503,
-        body: undefined,
+        cy.visit('/courses');
       });
 
-      cy.intercept('GET', '/api/references/offerings', {
-        statusCode: 503,
-        body: undefined,
+      it('should display the "no courses" alert', () => {
+        cy.get('[data-test-id="courses-list-alert-no-courses"]')
+          .should('exist')
+          .contains('No courses found.');
       });
 
-      cy.visit('/courses');
+      it('`not show the courses api error dialog`', () => {
+        cy.get('[data-test-id="courses-list-alert-api-error"]').should(
+          'not.exist'
+        );
+      });
     });
 
-    it('displays the error message', () => {
-      cy.get('[data-test-id="courses-list-alert-api-error"]')
-        .should('exist')
-        .contains('Sorry, there was an API Error');
-    });
+    describe('Api Has An Error', () => {
+      beforeEach(() => {
+        cy.intercept('GET', '/api/references/courses', {
+          statusCode: 503,
+          body: undefined,
+        });
+        cy.intercept('GET', '/api/references/offerings', {
+          statusCode: 503,
+        });
 
-    it('does not display the no courses notification', () => {
-      cy.get('[data-test-id="courses-list-alert-no-courses"]').should(
-        'not.exist'
-      );
+        cy.visit('/courses');
+      });
+
+      it('displays the error message', () => {
+        cy.get('[data-test-id="courses-list-alert-api-error"]')
+          .should('exist')
+          .contains('Sorry, there was an API Error.');
+      });
+
+      it('does not display the no courses notification', () => {
+        cy.get('[data-test-id="courses-list-alert-no-courses"]').should(
+          'not.exist'
+        );
+      });
     });
   });
-
-  describe('API Returns some courses', () => {});
 });
