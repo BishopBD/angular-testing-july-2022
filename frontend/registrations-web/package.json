@@ -8,7 +8,10 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "e2e": "ng e2e",
-    "lint": "ng lint"
+    "lint": "ng lint",
+    "cypress:open": "cypress open",
+    "cypress:run": "cypress run",
+    "cypress:install": "cypress install"
   },
   "private": true,
   "dependencies": {
@@ -20,6 +23,7 @@
     "@angular/platform-browser": "^14.0.0",
     "@angular/platform-browser-dynamic": "^14.0.0",
     "@angular/router": "^14.0.0",
+    "@ngrx/component": "^14.0.1",
     "@ngrx/effects": "^14.0.1",
     "@ngrx/entity": "^14.0.1",
     "@ngrx/router-store": "^14.0.1",
@@ -40,10 +44,12 @@
     "@angular-eslint/template-parser": "14.0.2",
     "@angular/cli": "~14.0.4",
     "@angular/compiler-cli": "^14.0.0",
+    "@cypress/schematic": "^2.0.0",
     "@types/jasmine": "~4.0.0",
     "@types/luxon": "^2.3.2",
     "@typescript-eslint/eslint-plugin": "5.29.0",
     "@typescript-eslint/parser": "5.29.0",
+    "cypress": "latest",
     "eslint": "^8.18.0",
     "jasmine-core": "~4.1.0",
     "karma": "~6.3.0",
