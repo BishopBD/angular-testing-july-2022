@@ -15,7 +15,7 @@ describe('The Courses Route', () => {
   describe('all the courses stuff', () => {
     beforeEach(() => {});
 
-    describe.only('has data', () => {
+    describe('has data', () => {
       beforeEach(() => {
         cy.intercept('/api/references/courses', {
           fixture: 'many-courses.json',
