@@ -41,7 +41,7 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })
-
+// '[data-testid="go-to-courses"]'
 Cypress.Commands.add('clickGoToCourses', () => {
   return cy.get('[data-testid="go-to-courses"]').click();
 });

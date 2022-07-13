@@ -3,8 +3,6 @@ import { Spectator, createComponentFactory } from '@ngneat/spectator/jest';
 import { ClickarooComponent } from './clickaroo.component';
 import '@ngneat/spectator/jest';
 import { tap } from 'rxjs';
-import exp = require('constants');
-
 describe('ClickarooComponent', () => {
   let spectator: Spectator<ClickarooComponent>;
   const createComponent = createComponentFactory(ClickarooComponent);
@@ -14,7 +12,6 @@ describe('ClickarooComponent', () => {
 
     expect(spectator.component).toBeTruthy();
   });
-
   it('clears out and focuses the input on button click', () => {
     spectator = createComponent();
     spectator.typeInElement('Hello, World', 'input[type="text"]');
@@ -23,7 +20,6 @@ describe('ClickarooComponent', () => {
     expect('input[type="text"]').toHaveValue('');
     expect('input[type="text"]').toBeFocused();
   });
-
   it('sends an output to the parent', () => {
     spectator = createComponent({ detectChanges: false });
     let result: string | undefined = undefined;
@@ -38,9 +34,8 @@ describe('ClickarooComponent', () => {
     spectator.detectChanges();
     expect(result).toBe('Hello, Tacos');
   });
-
   it('matches the snapshot', () => {
     spectator = createComponent();
     expect(spectator.fixture).toMatchSnapshot();
-  })
+  });
 });

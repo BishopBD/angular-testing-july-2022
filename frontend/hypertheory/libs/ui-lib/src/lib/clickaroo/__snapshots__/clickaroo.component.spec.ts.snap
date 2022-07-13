@@ -6,10 +6,10 @@ exports[`ClickarooComponent matches the snapshot 1`] = `
   buttonClicked={[Function EventEmitter_]}
 >
   <div
-    class="alert alert-info"
+    class="alert alert-success"
   >
     <p>
-      This is a magic button! Click it for a good time!
+      This is a The Magic Button! Click it for a good time!
     </p>
     <input
       type="text"

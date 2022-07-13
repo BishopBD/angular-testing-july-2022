@@ -1,4 +1,5 @@
 import { environment } from '../../../registrations-web/src/environments/environment';
+import { selectors } from './courses.selectors';
 
 describe('The Courses Route', () => {
   const baseUrl = environment.referencesApiUrl;
@@ -30,7 +31,7 @@ describe('The Courses Route', () => {
       });
 
       it('shows the stuff', () => {
-        cy.get('[data-test-id="courses-list"]').should('exist');
+        cy.get(selectors.getCoursesList).should('exist');
       });
       it('shows all the courses', () => {
         cy.get('[data-test-id^="courses-list-item-"]').should('have.length', 8);
@@ -71,11 +72,11 @@ describe('The Courses Route', () => {
 
     describe('Api Has An Error', () => {
       beforeEach(() => {
-        cy.intercept('GET', baseUrl + 'courses', {
+        cy.intercept('GET', '/api/references/courses', {
           statusCode: 503,
           body: undefined,
         });
-        cy.intercept('GET', baseUrl + 'offerings', {
+        cy.intercept('GET', '/api/references/offerings', {
           statusCode: 503,
         });
 
