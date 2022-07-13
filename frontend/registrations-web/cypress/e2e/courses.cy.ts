@@ -1,12 +1,14 @@
+import { environment } from '../../../registrations-web/src/environments/environment';
+
 describe('The Courses Route', () => {
+  const baseUrl = environment.referencesApiUrl;
   describe('Getting there', () => {
     beforeEach(() => {
       cy.visit('/');
     });
 
     it('allows you to get there from the home page', () => {
-      cy.get('[data-testid="go-to-courses"]')
-        .click()
+      cy.clickGoToCourses()
         .url()
         .should('match', /\/courses$/);
     });
@@ -17,10 +19,10 @@ describe('The Courses Route', () => {
 
     describe('has data', () => {
       beforeEach(() => {
-        cy.intercept('/api/references/courses', {
+        cy.intercept(baseUrl + 'courses', {
           fixture: 'many-courses.json',
         });
-        cy.intercept('/api/references/offerings', {
+        cy.intercept(baseUrl + 'offerings', {
           fixture: 'many-offerings.json',
         });
 
@@ -44,10 +46,10 @@ describe('The Courses Route', () => {
     });
     describe('No Courses Returned From Api', () => {
       beforeEach(() => {
-        cy.intercept('GET', '/api/references/courses', {
+        cy.intercept('GET', baseUrl + 'courses', {
           data: [],
         });
-        cy.intercept('GET', '/api/references/offerings', {
+        cy.intercept('GET', baseUrl + 'offerings', {
           data: [],
         });
 
@@ -69,11 +71,11 @@ describe('The Courses Route', () => {
 
     describe('Api Has An Error', () => {
       beforeEach(() => {
-        cy.intercept('GET', '/api/references/courses', {
+        cy.intercept('GET', baseUrl + 'courses', {
           statusCode: 503,
           body: undefined,
         });
-        cy.intercept('GET', '/api/references/offerings', {
+        cy.intercept('GET', baseUrl + 'offerings', {
           statusCode: 503,
         });
 

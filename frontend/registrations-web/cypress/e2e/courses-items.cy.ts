@@ -1,10 +1,13 @@
+import { environment } from '../../../registrations-web/src/environments/environment';
+
 describe('course list items', () => {
+  const baseUrl = environment.referencesApiUrl;
   beforeEach(() => {
-    cy.intercept('/api/references/courses', {
+    cy.intercept(baseUrl + 'courses', {
       fixture: 'course-list-variations.json',
     }).as('courses');
 
-    cy.intercept('/api/references/offerings', {
+    cy.intercept(baseUrl + 'offerings', {
       fixture: 'offerings-list-variations.json',
     }).as('offerings');
     cy.visit('/courses');
